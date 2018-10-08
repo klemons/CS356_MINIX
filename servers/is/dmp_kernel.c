@@ -487,6 +487,7 @@ int proc_nr;
  {
 	char* procName = "";
   register struct proc *rp;
+  register struct proc *begrp;
 	int i = 0, j = 0, k = 0;
   int s = 0, p = 0, t = 0, v = 0;
   int sum = 0;
@@ -535,30 +536,51 @@ int proc_nr;
   
   printf("    name ");
   rp = BEG_PROC_ADDR;
-  for (i = 0; i < 13; i++)
+  for (i = 0; i < 13; rp++)
   {
     procName = (rp+i)->p_name;
     printf("%*.*s ", max_digits[i] , max_digits[i], procName);
   }
 
   rp = BEG_PROC_ADDR;
+  for (i = 0; i < 13; rp++)
+  {
+    if(rp->os_message_sum_received > 0)
+    {
+      procName = (rp)->p_name;
+      printf("%*.*s ", max_digits[i] , max_digits[i], procName);
+      i++;
+    }
+  }
+
   printf("\nname pid ");
 
-  for (i = 0; i < 13; i++)
+  rp = BEG_PROC_ADDR;
+  for (i = 0; i < 13; rp++)
   {
-    printf("%*.*d ", max_digits[i], max_digits[i], i - NR_TASKS);
+    if(rp->os_message_sum_received > 0)
+    {
+      printf("%*.*d ", max_digits[i], max_digits[i], (rp+i)->p_nr);
+      i++;
+    }
   }
 
   rp = BEG_PROC_ADDR;
+  begrp = BEG_PROC_ADDR;
   for (i = 0; i < 13; rp++)
   {
     procName = (rp)->p_name;
     if(rp->os_message_sum_sent > 0)
     {
-      printf("\n%4.4s %3d ", procName, i - NR_TASKS);
-      for (j = 0; j < 13; j++)
+      printf("\n%4.4s %3d ", procName, rp->p_nr);
+      t = 0;
+      for (j = 0; j < NR_TASKS+NR_PROCS, t < 13; j++)
       {
-        printf("%*.*d ", max_digits[j], max_digits[j], rp->os_message_table[j]);
+        if((begrp+j)->os_message_sum_received > 0) 
+        {
+          printf("%*.*d ", max_digits[j], max_digits[j], rp->os_message_table[j]);
+          t++;
+        }
       }
       i++;
     }
