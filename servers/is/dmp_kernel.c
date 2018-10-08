@@ -535,13 +535,13 @@ int proc_nr;
   
   
   printf("    name ");
-  rp = BEG_PROC_ADDR;
-  for (i = 0; i < 13; rp++)
+  i = 0;
+  for (rp = BEG_PROC_ADDR; i < 13; rp++)
   {
     if(rp->os_message_sum_received > 0)
     {
       procName = (rp)->p_name;
-      printf("%*.*s ", max_digits[i] , max_digits[i], procName);
+      printf("%*.*s ", 5 , 5, procName);
       i++;
     }
   }
