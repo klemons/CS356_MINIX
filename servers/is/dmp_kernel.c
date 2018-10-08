@@ -535,9 +535,7 @@ int proc_nr;
   printf("---------------- Matthew, John, Kyle - Message Table Dump ---------------- \n");
   
   
-  rp = BEG_PROC_ADDR;
-  printf(proc_name(_ENDPOINT_P(rp->p_sendto_e)));
-  printf("\n    name ");
+  printf("    name ");
   rp = BEG_PROC_ADDR;
   for (i = 0; i < 13; i++)
   {
