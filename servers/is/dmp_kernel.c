@@ -487,12 +487,13 @@ int proc_nr;
  {
 	char* procName = "";
   register struct proc *rp;
-  register struct proc *begrp;
 	int i = 0, j = 0, k = 0;
   int s = 0, p = 0, t = 0, v = 0;
   int sum = 0;
   static int cs = 1;
   int os_cs356_proc_message_table[NR_TASKS+NR_PROCS][NR_TASKS+NR_PROCS] = {{0}};
+  int os_cs356_proc_sum_sent[NR_TASKS+NR_PROCS] = {0};
+  int os_cs356_proc_sum_received[NR_TASKS+NR_PROCS] = {0};
   int importantSent[13] = {0};
   int importantReceived[13] = {0};
   int importantMatrix[13][13] = {{0}};
@@ -534,51 +535,32 @@ int proc_nr;
   printf("---------------- Matthew, John, Kyle - Message Table Dump ---------------- \n");
   
   
-  printf("    name ");
-  i = 0;
-  for (rp = BEG_PROC_ADDR; i < 13; rp++)
+  rp = BEG_PROC_ADDR;
+  printf(proc_name(_ENDPOINT_P(rp->p_sendto_e)));
+  printf("\n    name ");
+  rp = BEG_PROC_ADDR;
+  for (i = 0; i < 13; i++)
   {
-    if(rp->os_message_sum_received > 0)
-    {
-      procName = proc_name((rp)->p_nr);
-      printf((rp)->p_nr)
-      printf("%*.*s ", 2 , 2, procName);
-      i++;
-    }
+    procName = (rp+i)->p_name;
+    printf("%*.*s ", max_digits[i] , max_digits[i], procName);
   }
 
-  /*printf("\nname pid ");
+  printf("\nname pid ");
 
-  rp = BEG_PROC_ADDR;
-  for (i = 0; i < 13; rp++)
+  for (i = 0; i < 13; i++)
   {
-    if(rp->os_message_sum_received > 0)
-    {
-      printf("%*.*d ", max_digits[i], max_digits[i], (rp+i)->p_nr);
-      i++;
-    }
+    printf("%*.*d ", max_digits[i], max_digits[i], i - NR_TASKS);
   }
 
-  rp = BEG_PROC_ADDR;
-  begrp = BEG_PROC_ADDR;
-  for (i = 0; i < 13; rp++)
+  for (i = 0; i < 13; i++)
   {
-    procName = (rp)->p_name;
-    if(rp->os_message_sum_sent > 0)
+    procName = (rp+i)->p_name;
+    printf("\n%4.4s %3d ", procName, i - NR_TASKS);
+    for (j = 0; j < 13; j++)
     {
-      printf("\n%4.4s %3d ", procName, rp->p_nr);
-      t = 0;
-      for (j = 0; j < NR_TASKS+NR_PROCS, t < 13; j++)
-      {
-        if((begrp+j)->os_message_sum_received > 0) 
-        {
-          printf("%*.*d ", max_digits[j], max_digits[j], rp->os_message_table[j]);
-          t++;
-        }
-      }
-      i++;
+      printf("%*.*d ", max_digits[j], max_digits[j], os_cs356_proc_message_table[i][j]);
     }
   }
   
-  printf("\n");*/
+  printf("\n");
  }
