@@ -538,13 +538,6 @@ int proc_nr;
   rp = BEG_PROC_ADDR;
   for (i = 0; i < 13; rp++)
   {
-    procName = (rp+i)->p_name;
-    printf("%*.*s ", max_digits[i] , max_digits[i], procName);
-  }
-
-  rp = BEG_PROC_ADDR;
-  for (i = 0; i < 13; rp++)
-  {
     if(rp->os_message_sum_received > 0)
     {
       procName = (rp)->p_name;
@@ -553,7 +546,7 @@ int proc_nr;
     }
   }
 
-  printf("\nname pid ");
+  /*printf("\nname pid ");
 
   rp = BEG_PROC_ADDR;
   for (i = 0; i < 13; rp++)
@@ -586,5 +579,5 @@ int proc_nr;
     }
   }
   
-  printf("\n");
+  printf("\n");*/
  }
