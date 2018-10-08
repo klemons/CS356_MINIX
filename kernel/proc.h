@@ -18,7 +18,6 @@
 #include "const.h"
 #include "priv.h"
 
-int **projectArray;
 	    
 struct proc {
   struct stackframe_s p_reg;	/* process' registers saved in stack frame */
