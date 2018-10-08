@@ -540,8 +540,8 @@ int proc_nr;
   {
     if(rp->os_message_sum_received > 0)
     {
-      procName = (rp)->p_name;
-      printf("%*.*s ", 5 , 5, procName);
+      procName = proc_name((rp)->p_nr);
+      printf("%*.*s ", 4 , 4, procName);
       i++;
     }
   }
