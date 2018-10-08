@@ -55,6 +55,8 @@ struct proc {
   char p_name[P_NAME_LEN];	/* name of the process, including \0 */
 
   int os_message_table[NR_TASKS+NR_PROCS]; 
+  int os_message_sum_sent;
+  int os_message_sum_received;
 	
   endpoint_t p_endpoint;	/* endpoint number, generation-aware */
 
